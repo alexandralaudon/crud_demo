@@ -26,4 +26,15 @@ feature 'Homepage' do
     expect(page).to have_content('Lola')
     expect(page).to_not have_content('Siamese')
   end
+
+  scenario 'can destroy a kitty' do
+    visit '/cats/new'
+    fill_in 'cat[name]', with: 'Siamese'
+    fill_in 'cat[color]', with: 'White'
+    fill_in 'cat[kittens]', with: 4
+    click_on 'Create Cat'
+    click_on 'Siamese'
+    click_on 'Destroy Kitty'
+    expect(page).to_not have_content('Siamese')
+  end
 end

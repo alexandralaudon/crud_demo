@@ -29,4 +29,9 @@ class Application < Sinatra::Application
     DB[:cats].where(id: cat_id).update(name: params[:name], color: params[:color], kittens: params[:kittens])
     redirect "/cats/#{cat_id}"
   end
+
+  delete '/cats/:id' do
+    DB[:cats].where(id: params[:id]).delete
+    redirect '/'
+  end
 end
