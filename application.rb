@@ -4,14 +4,18 @@ class Application < Sinatra::Application
 
   def initialize(app=nil)
     super(app)
-
-    # initialize any other instance variables for you
-    # application below this comment. One example would be repositories
-    # to store things in a database.
-
   end
 
   get '/' do
-    erb :index
+    erb :index, locals: { list_of_cats: DB[:cats].to_a }
+  end
+
+  get '/cats/new' do
+    erb :new
+  end
+
+  post '/cats' do
+    DB[:cats].insert(params[:cat])
+    redirect '/'
   end
 end
